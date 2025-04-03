@@ -1,0 +1,49 @@
+{
+  "name": "@lapras-inc/lapras-mcp-server",
+  "version": "0.0.10",
+  "type": "module",
+  "homepage": "https://github.com/lapras-inc/lapras-mcp-server",
+  "bugs": "https://github.com/lapras-inc/lapras-mcp-server/issues",
+  "bin": {
+    "lapras-mcp-server": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "build": "rm -rf dist && tsc && chmod +x dist/index.js",
+    "prepare": "npm run build",
+    "dev": "tsc --watch",
+    "lint": "biome check ./src",
+    "lint:fix": "biome check --apply ./src"
+  },
+  "keywords": [
+    "mcp",
+    "lapras",
+    "job_description"
+  ],
+  "author": "lapras-inc",
+  "license": "MIT",
+  "description": "MCP server for lapras.com",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "fastmcp": "^1.21.0",
+    "node-fetch": "^3.3.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.14.0",
+    "@vitest/ui": "^3.1.1",
+    "lefthook": "^1.11.6",
+    "typescript": "^5.8.2",
+    "vitest": "^3.1.1"
+  }
+}

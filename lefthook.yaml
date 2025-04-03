@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome-lint:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: npx biome lint {staged_files}
+      skip_empty: true
+      fail_text: "Biomeによるlintチェックが失敗しました。エラーを修正してください。"
+    biome-format:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: npx biome format {staged_files} --write
+      skip_empty: true
+      fail_text: "Biomeによるフォーマットが失敗しました。エラーを修正してください。"
