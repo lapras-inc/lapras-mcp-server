@@ -7,11 +7,14 @@
   "bin": {
     "lapras-mcp": "dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "vitest",
     "test:ci": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "build": "rm -rf dist && tsc && chmod +x dist/**/*.js",
+    "build": "rm -rf dist && tsc && chmod +x dist/index.js",
     "prepare": "npm run build",
     "dev": "tsc --watch",
     "lint": "biome check ./src",
