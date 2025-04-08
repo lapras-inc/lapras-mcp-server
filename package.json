@@ -1,17 +1,17 @@
 {
   "name": "@lapras-inc/lapras-mcp",
   "version": "0.0.6",
-  "main": "dist/index.js",
   "type": "module",
+  "homepage": "https://github.com/lapras-inc/lapras-mcp",
+  "bugs": "https://github.com/lapras-inc/lapras-mcp/issues",
   "bin": {
-    "@lapras-inc/lapras-mcp": "dist/index.js"
+    "lapras-mcp": "dist/index.js"
   },
   "scripts": {
     "test": "vitest",
     "test:ci": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "build:tsc": "tsc",
-    "build": "rm -rf dist && npm run build:tsc && chmod +x dist/**/*.js",
+    "build": "rm -rf dist && tsc && chmod +x dist/**/*.js",
     "prepare": "npm run build",
     "dev": "tsc --watch",
     "lint": "biome check ./src",
@@ -34,7 +34,6 @@
     "@biomejs/biome": "1.9.4",
     "@types/node": "^22.14.0",
     "@vitest/ui": "^3.1.1",
-    "esbuild": "^0.25.2",
     "lefthook": "^1.11.6",
     "typescript": "^5.8.2",
     "vitest": "^3.1.1"
