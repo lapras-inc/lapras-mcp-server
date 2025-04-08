@@ -1,20 +1,34 @@
 {
   "name": "@lapras-inc/lapras-mcp",
-  "version": "0.0.1",
-  "main": "dist/index.js",
+  "version": "0.0.9",
   "type": "module",
+  "homepage": "https://github.com/lapras-inc/lapras-mcp",
+  "bugs": "https://github.com/lapras-inc/lapras-mcp/issues",
+  "bin": {
+    "lapras-mcp": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "vitest",
     "test:ci": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "build:tsc": "tsc",
-    "build": "rm -rf dist && npm run build:tsc && chmod +x dist/**/*.js",
+    "build": "rm -rf dist && tsc && chmod +x dist/index.js",
     "prepare": "npm run build",
     "dev": "tsc --watch",
     "lint": "biome check ./src",
     "lint:fix": "biome check --apply ./src"
   },
-  "keywords": ["mcp", "lapras", "job_description"],
+  "keywords": [
+    "mcp",
+    "lapras",
+    "job_description"
+  ],
   "author": "lapras-inc",
   "license": "MIT",
   "description": "MCP service for lapras",
@@ -27,7 +41,6 @@
     "@biomejs/biome": "1.9.4",
     "@types/node": "^22.14.0",
     "@vitest/ui": "^3.1.1",
-    "esbuild": "^0.25.2",
     "lefthook": "^1.11.6",
     "typescript": "^5.8.2",
     "vitest": "^3.1.1"
