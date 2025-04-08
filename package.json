@@ -4,11 +4,8 @@
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "lapras-mcp": "dist/index.js"
+    "@lapras-inc/lapras-mcp": "dist/index.js"
   },
-  "files": [
-    "dist"
-  ],
   "scripts": {
     "test": "vitest",
     "test:ci": "vitest run",
