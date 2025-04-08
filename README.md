@@ -14,9 +14,9 @@ LAPRAS APIを利用したMCP（Model Context Protocol） サーバー。
 
 ## Setup
 
-### npm経由での利用
+mcp.jsonまたはclaude_desktop_config.jsonに以下を追記してください。
 
-Claude Desktopで使用するには、以下の内容をclaude_desktop_config.jsonに追加してください。
+### npm経由での利用
 
 ```
 {
@@ -33,8 +33,6 @@ Claude Desktopで使用するには、以下の内容をclaude_desktop_config.js
 ```
 
 ### Dockerでの利用
-
-Claude Desktopで使用するには、以下の内容をclaude_desktop_config.jsonに追加してください。
 
 ```
 {
