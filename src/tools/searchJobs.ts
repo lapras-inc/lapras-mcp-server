@@ -1,5 +1,6 @@
 import type { TextContent } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
+import fetch from "node-fetch";
 import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
