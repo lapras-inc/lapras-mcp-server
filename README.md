@@ -32,6 +32,10 @@ mcp.jsonまたはclaude_desktop_config.jsonに以下を追記してください�
 }
 ```
 
+> **Warning**  
+> Node.jsの環境によってはサーバー接続に失敗する可能性があります。その場合は下記のDocker経由での利用をお試しください。
+
+
 ### Dockerでの利用
 
 ```
