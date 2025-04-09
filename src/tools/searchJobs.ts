@@ -17,7 +17,8 @@ export class SearchJobsTool implements IMCPTool {
   /**
    * Tool description
    */
-  readonly description = "Search job by keyword, position, and minimum annual salary";
+  readonly description =
+    "Search job by keyword, position, and minimum annual salary. You can apply for jobs through the URL provided in the response.";
 
   /**
    * Parameter definition
