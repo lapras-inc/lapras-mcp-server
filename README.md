@@ -8,7 +8,7 @@ https://lapras.com 公式のMCP Server
 [![CI Status](https://img.shields.io/github/actions/workflow/status/lapras-inc/lapras-mcp-server/ci.yml?branch=main)](https://github.com/lapras-inc/lapras-mcp-server/actions)
 
 
-## Instration
+##  Setup
 
 mcp.jsonまたはclaude_desktop_config.jsonに以下を追記してください。
 
@@ -56,7 +56,7 @@ mcp.jsonまたはclaude_desktop_config.jsonに以下を追記してください�
 
 ```
 フルリモートワーク可能でRustが使えるバックエンドの求人を探してください。年収は800万以上で。
-結果はMardkownの表にまとめてください。
+結果はMarkdownの表にまとめてください。
 ```
 
 自分にあった求人の検索例
