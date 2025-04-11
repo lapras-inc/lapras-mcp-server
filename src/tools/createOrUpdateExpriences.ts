@@ -17,7 +17,8 @@ export class CreateOrUpdateExpriencesTool implements IMCPTool {
   /**
    * Tool description
    */
-  readonly description = "Create or update work experiences on LAPRAS(https://lapras.com)";
+  readonly description =
+    "Create or update work experiences on LAPRAS(https://lapras.com). This API does not perform differential updates. You need to send all work experience information, not just the ones you want to update. Before executing this API, please make sure to run the get_experiences tool to backup your current work experience data.";
 
   /**
    * Parameter definition
