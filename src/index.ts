@@ -2,7 +2,6 @@
 
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { CreateOrUpdateExpriencesTool } from "./tools/createOrUpdateExpriences.js";
 import { GetExpriencesTool } from "./tools/getExperiences.js";
 import { GetJobDetailTool } from "./tools/getJobDetail.js";
 import { SearchJobsTool } from "./tools/searchJobs.js";
@@ -11,7 +10,6 @@ import type { IMCPTool } from "./types.js";
 export const ALL_TOOLS: IMCPTool[] = [
   new SearchJobsTool(), // 求人検索ツール
   new GetJobDetailTool(), // 求人詳細取得ツール
-  new CreateOrUpdateExpriencesTool(), // 職歴新規追加・更新ツール
   new GetExpriencesTool(), // 職歴取得ツール
 ];
 
