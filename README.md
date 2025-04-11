@@ -47,6 +47,8 @@ LAPRAS_API_KEYは職歴関連のツールを使う場合のみ必要です。htt
         "run",
         "-i",
         "--rm",
+        "-e",
+        "LAPRAS_API_KEY",
         "laprascom/lapras-mcp-server"
       ],
       "env": {
