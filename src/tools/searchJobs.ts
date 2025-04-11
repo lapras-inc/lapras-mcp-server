@@ -5,6 +5,39 @@ import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
 
+export const JobSearchResultSchema = z.object({
+  job_description_id: z.number(),
+  company_id: z.number(),
+  title: z.string(),
+  created_at: z.number(),
+  updated_at: z.number(),
+  service_image_url: z.string().optional(),
+  company: z.object({
+    name: z.string(),
+    logo_image_url: z.string().optional(),
+  }),
+  work_location_prefecture: z.array(z.string()),
+  position_name: z.string().optional(),
+  tags: z
+    .array(
+      z.object({
+        name: z.string(),
+      }),
+    )
+    .optional(),
+  employment_type: z.string().optional(),
+  salary_min: z.number().optional(),
+  salary_max: z.number().optional(),
+  service_image_thumbnail_url: z.string().optional(),
+  salary_type: z.number().optional(),
+  preferred_condition_names: z.array(z.string()).optional(),
+  business_type_names: z.array(z.string()).optional(),
+  work_style_names: z.array(z.string()).optional(),
+  url: z.string(),
+});
+
+export type JobSearchResult = z.infer<typeof JobSearchResultSchema>;
+
 /**
  * 求人検索ツール
  */
@@ -17,8 +50,7 @@ export class SearchJobsTool implements IMCPTool {
   /**
    * Tool description
    */
-  readonly description =
-    "Search job by keyword, position, and minimum annual salary. You can apply for jobs through the URL provided in the response.";
+  readonly description = "Search job by keyword, position, and minimum annual salary";
 
   /**
    * Parameter definition
@@ -187,11 +219,33 @@ export class SearchJobsTool implements IMCPTool {
         throw new Error(`API request failed with status: ${response.status}`);
       }
 
-      const data = await response.json();
+      const rawData = await response.json();
+
+      const ApiResponse = z.object({
+        job_descriptions: z.array(JobSearchResultSchema).catch([]),
+        total_count: z.number(),
+        current_page: z.number(),
+        per_page: z.number(),
+        total_pages: z.number(),
+      });
+
+      const data = ApiResponse.parse(rawData);
+
+      // 画像URLはコンテキスト長を圧迫するため除外
+      const cleanedJobs = data.job_descriptions.map((job) => {
+        const { service_image_url, service_image_thumbnail_url, company, ...rest } = job;
+        return {
+          ...rest,
+          company: {
+            name: company.name,
+          },
+        };
+      });
+
       const content: TextContent[] = [
         {
           type: "text",
-          text: JSON.stringify(data, null, 2),
+          text: JSON.stringify({ ...data, job_descriptions: cleanedJobs }, null, 2),
         },
       ];
 

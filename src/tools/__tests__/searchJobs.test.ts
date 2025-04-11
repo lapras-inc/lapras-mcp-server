@@ -24,15 +24,24 @@ describe("SearchJobsTool", () => {
 
   it("基本的なパラメータで正常にAPIリクエストを実行できる", async () => {
     const mockData = {
-      total: 10,
-      current_page: 1,
-      jobs: [
+      job_descriptions: [
         {
-          id: "123",
+          job_description_id: 123,
+          company_id: 456,
           title: "Software Engineer",
-          company_name: "LAPRAS Inc.",
+          created_at: 1234567890,
+          updated_at: 1234567890,
+          company: {
+            name: "LAPRAS Inc.",
+          },
+          work_location_prefecture: ["Tokyo"],
+          url: "https://example.com/job/123",
         },
       ],
+      total_count: 10,
+      current_page: 1,
+      per_page: 20,
+      total_pages: 1,
     };
 
     mockFetch.mockResolvedValueOnce({
@@ -44,7 +53,7 @@ describe("SearchJobsTool", () => {
 
     expect(result.isError).toBeUndefined();
     expect(result.content[0].type).toBe("text");
-    expect(result.content[0].text).toBe(JSON.stringify(mockData, null, 2));
+    expect(JSON.parse(result.content[0].text)).toEqual(mockData);
 
     const callUrl = mockFetch.mock.calls[0][0].toString();
     expect(callUrl).toContain(
@@ -54,15 +63,24 @@ describe("SearchJobsTool", () => {
 
   it("複数のパラメータを使用して正常にAPIリクエストを実行できる", async () => {
     const mockData = {
-      total: 5,
-      current_page: 1,
-      jobs: [
+      job_descriptions: [
         {
-          id: "456",
+          job_description_id: 456,
+          company_id: 789,
           title: "Frontend Engineer",
-          company_name: "LAPRAS Inc.",
+          created_at: 1234567890,
+          updated_at: 1234567890,
+          company: {
+            name: "LAPRAS Inc.",
+          },
+          work_location_prefecture: ["Tokyo"],
+          url: "https://example.com/job/456",
         },
       ],
+      total_count: 5,
+      current_page: 1,
+      per_page: 20,
+      total_pages: 1,
     };
 
     mockFetch.mockResolvedValueOnce({
@@ -83,7 +101,7 @@ describe("SearchJobsTool", () => {
 
     expect(result.isError).toBeUndefined();
     expect(result.content[0].type).toBe("text");
-    expect(result.content[0].text).toBe(JSON.stringify(mockData, null, 2));
+    expect(JSON.parse(result.content[0].text)).toEqual(mockData);
 
     const fetchCall = mockFetch.mock.calls[0][0].toString();
     expect(fetchCall).toContain("keyword=frontend");
@@ -95,7 +113,26 @@ describe("SearchJobsTool", () => {
   });
 
   it("すべての配列パラメータを正しく処理できる", async () => {
-    const mockData = { total: 3, jobs: [] };
+    const mockData = {
+      job_descriptions: [
+        {
+          job_description_id: 789,
+          company_id: 101,
+          title: "Full Stack Engineer",
+          created_at: 1234567890,
+          updated_at: 1234567890,
+          company: {
+            name: "LAPRAS Inc.",
+          },
+          work_location_prefecture: ["Tokyo"],
+          url: "https://example.com/job/789",
+        },
+      ],
+      total_count: 3,
+      current_page: 1,
+      per_page: 20,
+      total_pages: 1,
+    };
     mockFetch.mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve(mockData),
@@ -117,7 +154,7 @@ describe("SearchJobsTool", () => {
 
     expect(result.isError).toBeUndefined();
     expect(result.content[0].type).toBe("text");
-    expect(result.content[0].text).toBe(JSON.stringify(mockData, null, 2));
+    expect(JSON.parse(result.content[0].text)).toEqual(mockData);
 
     const fetchCall = mockFetch.mock.calls[0][0].toString();
     expect(fetchCall).toContain("positions%5B%5D=FRONTEND_ENGINEER");
@@ -168,5 +205,87 @@ describe("SearchJobsTool", () => {
     expect(result.content[0].text).toContain("求人情報の取得に失敗しました");
 
     console.error = originalConsoleError;
+  });
+
+  it("APIレスポンスが正しくバリデーションされ、画像URLが除外される", async () => {
+    const mockApiResponse = {
+      job_descriptions: [
+        {
+          job_description_id: 123,
+          company_id: 456,
+          title: "エンジニア募集",
+          created_at: 1234567890,
+          updated_at: 1234567890,
+          service_image_url: "https://example.com/image.jpg",
+          service_image_thumbnail_url: "https://example.com/thumbnail.jpg",
+          company: {
+            name: "LAPRAS Inc.",
+            logo_image_url: "https://example.com/logo.jpg",
+          },
+          work_location_prefecture: ["東京都"],
+          position_name: "バックエンドエンジニア",
+          tags: [{ name: "Python" }],
+          employment_type: "正社員",
+          salary_min: 5000000,
+          salary_max: 8000000,
+          salary_type: 1,
+          preferred_condition_names: ["フレックス"],
+          business_type_names: ["自社開発"],
+          work_style_names: ["フルリモート"],
+          url: "https://example.com/job/123",
+        },
+      ],
+      total_count: 1,
+      current_page: 1,
+      per_page: 20,
+      total_pages: 1,
+    };
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockApiResponse),
+    });
+
+    const result = await tool.execute({} as any);
+
+    expect(result.isError).toBeUndefined();
+    const parsedContent = JSON.parse(result.content[0].text);
+
+    // 画像URLが除外されていることを確認
+    expect(parsedContent.job_descriptions[0].service_image_url).toBeUndefined();
+    expect(parsedContent.job_descriptions[0].service_image_thumbnail_url).toBeUndefined();
+    expect(parsedContent.job_descriptions[0].company.logo_image_url).toBeUndefined();
+
+    // 必須フィールドが存在することを確認
+    expect(parsedContent.job_descriptions[0].job_description_id).toBe(123);
+    expect(parsedContent.job_descriptions[0].title).toBe("エンジニア募集");
+    expect(parsedContent.job_descriptions[0].company.name).toBe("LAPRAS Inc.");
+  });
+
+  it("不正なAPIレスポンスの場合はエラーを返す", async () => {
+    const invalidApiResponse = {
+      job_descriptions: [
+        {
+          // job_description_idが欠けている
+          title: "エンジニア募集",
+          company: {
+            name: "LAPRAS Inc.",
+          },
+        },
+      ],
+      // total_countが欠けている
+      current_page: 1,
+      per_page: 20,
+      total_pages: 1,
+    };
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(invalidApiResponse),
+    });
+
+    const result = await tool.execute({} as any);
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain("求人情報の取得に失敗しました");
   });
 });
