@@ -233,9 +233,10 @@ export class SearchJobsTool implements IMCPTool {
 
       // 画像URLはコンテキスト長を圧迫するため除外
       const cleanedJobs = data.job_descriptions.map((job) => {
-        const { service_image_url, service_image_thumbnail_url, company, ...rest } = job;
+        const { service_image_url, service_image_thumbnail_url, company, tags, ...rest } = job;
         return {
           ...rest,
+          tags: tags?.map((tag) => tag.name).join(", "),
           company: {
             name: company.name,
           },

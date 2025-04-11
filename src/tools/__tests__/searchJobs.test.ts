@@ -224,7 +224,7 @@ describe("SearchJobsTool", () => {
           },
           work_location_prefecture: ["東京都"],
           position_name: "バックエンドエンジニア",
-          tags: [{ name: "Python" }],
+          tags: [{ name: "Python" }, { name: "Django" }],
           employment_type: "正社員",
           salary_min: 5000000,
           salary_max: 8000000,
@@ -255,6 +255,9 @@ describe("SearchJobsTool", () => {
     expect(parsedContent.job_descriptions[0].service_image_url).toBeUndefined();
     expect(parsedContent.job_descriptions[0].service_image_thumbnail_url).toBeUndefined();
     expect(parsedContent.job_descriptions[0].company.logo_image_url).toBeUndefined();
+
+    // タグが文字列に変換されていることを確認
+    expect(parsedContent.job_descriptions[0].tags).toBe("Python, Django");
 
     // 必須フィールドが存在することを確認
     expect(parsedContent.job_descriptions[0].job_description_id).toBe(123);
