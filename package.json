@@ -22,7 +22,7 @@
     "prepare": "npm run build",
     "dev": "tsc --watch",
     "lint": "biome check ./src",
-    "lint:fix": "biome check --apply ./src"
+    "lint:fix": "biome check --write ./src"
   },
   "keywords": [
     "mcp",
