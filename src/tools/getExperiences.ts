@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import type { IMCPTool } from "../types.js";
+import { validateApiKey } from "../helpers/validateApiKey.js";
 
 /**
  * 職歴取得ツール
@@ -30,20 +31,15 @@ export class GetExpriencesTool implements IMCPTool {
     content: TextContent[];
     isError?: boolean;
   }> {
-    const lapras_api_key = process.env.LAPRAS_API_KEY?.trim();
-    if (!lapras_api_key) {
-      return createErrorResponse(
-        new Error("LAPRAS_API_KEY is required"),
-        "LAPRAS_API_KEYの設定が必要です。https://lapras.com/config/api-key から取得してmcp.jsonに設定してください。",
-      );
-    }
+    const apiKeyResult = validateApiKey();
+    if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
 
     try {
       const url = new URL(`${BASE_URL}/experiences`);
       const response = await fetch(url, {
         headers: {
           accept: "application/json, text/plain, */*",
-          Authorization: `Bearer ${lapras_api_key}`,
+          Authorization: `Bearer ${apiKeyResult.apiKey}`,
         },
         method: "GET",
       });
