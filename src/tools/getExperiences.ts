@@ -2,8 +2,8 @@ import type { TextContent } from "@modelcontextprotocol/sdk/types.js";
 import fetch from "node-fetch";
 import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
-import type { IMCPTool } from "../types.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
+import type { IMCPTool } from "../types.js";
 
 /**
  * 職歴取得ツール
