@@ -34,7 +34,6 @@
   "description": "MCP server for lapras.com",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.8.0",
-    "fastmcp": "^1.21.0",
     "node-fetch": "^3.3.2",
     "zod": "^3.24.2"
   },
