@@ -45,9 +45,9 @@ describe("UpdateExperienceTool", () => {
       start_month: 1,
       end_year: 2023,
       end_month: 12,
-      position_name: undefined,
-      client_company_name: undefined,
-      description: undefined,
+      position_name: "",
+      client_company_name: "",
+      description: "",
     };
 
     mockFetch.mockResolvedValueOnce({
@@ -95,9 +95,9 @@ describe("UpdateExperienceTool", () => {
       start_month: 1,
       end_year: 2023,
       end_month: 12,
-      position_name: undefined,
-      client_company_name: undefined,
-      description: undefined,
+      position_name: "",
+      client_company_name: "",
+      description: "",
     });
 
     expect(result.isError).toBe(true);
@@ -122,9 +122,9 @@ describe("UpdateExperienceTool", () => {
       start_month: 1,
       end_year: 2023,
       end_month: 12,
-      position_name: undefined,
-      client_company_name: undefined,
-      description: undefined,
+      position_name: "",
+      client_company_name: "",
+      description: "",
     });
 
     expect(result.isError).toBe(true);

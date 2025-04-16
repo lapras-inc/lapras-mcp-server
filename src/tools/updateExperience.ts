@@ -40,7 +40,7 @@ export class UpdateExperienceTool implements IMCPTool {
       .describe(
         "List of position type IDs - multiple selections are allowed. Please set relevant position types.",
       ),
-    position_name: z.string().optional().describe("Position title"),
+    position_name: z.string().default("").describe("Position title"),
     is_client_work: z
       .boolean()
       .describe(
