@@ -78,6 +78,9 @@ describe("UpdateExperienceTool", () => {
           start_month: updateParams.start_month,
           end_year: updateParams.end_year,
           end_month: updateParams.end_month,
+          position_name: updateParams.position_name,
+          client_company_name: updateParams.client_company_name,
+          description: updateParams.description,
         }),
       }),
     );
