@@ -115,15 +115,15 @@ https://github.com/user-attachments/assets/9c61470f-f97d-4e6f-97ca-53718c796376
 - LAPRASに登録されている職歴情報の一覧を取得
 - 使用例: `get_experiences` ツールを呼び出し、登録済みの職歴一覧を取得
 
-### `create_experience` 職歴新規追加
+### `create_experience` 職歴新規追加 (α版)
 - LAPRASに新しい職歴情報を追加
 - 使用例: `create_experience` ツールを呼び出し、新しい職歴を登録
 
-### `update_experience` 職歴更新
+### `update_experience` 職歴更新 (α版)
 - LAPRASに登録されている職歴情報を更新
 - 使用例: `update_experience` ツールを呼び出し、既存の職歴を更新
 
-### `delete_experience` 職歴削除
+### `delete_experience` 職歴削除 (α版)
 - LAPRASに登録されている職歴情報を削除
 - 使用例: `delete_experience` ツールを呼び出し、指定した職歴を削除
 
@@ -131,3 +131,6 @@ https://github.com/user-attachments/assets/9c61470f-f97d-4e6f-97ca-53718c796376
 > 職歴関連のツールを使用するには、LAPRAS_API_KEYの設定が必要です。
 > APIキーは https://lapras.com/config/api-key から取得できます。
 
+
+> [!WARNING]
+> 職歴更新系のツールはまだα版です。必ずお手元に職歴のバックアップを取ってから実行してください。
