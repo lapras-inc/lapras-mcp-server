@@ -56,7 +56,7 @@ export class UpdateExperienceTool implements IMCPTool {
     end_month: z.number().describe("End month (0 if ongoing)"),
     description: z
       .string()
-      .optional()
+      .default("")
       .describe("Detailed description of the experience (Markdown format)"),
   } as const;
 
