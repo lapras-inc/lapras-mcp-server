@@ -136,4 +136,49 @@ describe("UpdateExperienceTool", () => {
 
     console.error = originalConsoleError;
   });
+
+  it("descriptionの\\nを改行文字に変換する", async () => {
+    const updateParams = {
+      experience_id: 123,
+      organization_name: "Test Company",
+      positions: [{ id: 1 }],
+      is_client_work: false,
+      start_year: 2020,
+      start_month: 1,
+      end_year: 2023,
+      end_month: 12,
+      position_name: "",
+      client_company_name: "",
+      description: "Line 1\\nLine 2\\nLine 3",
+    };
+
+    const expectedBody = {
+      organization_name: updateParams.organization_name,
+      positions: updateParams.positions,
+      is_client_work: updateParams.is_client_work,
+      start_year: updateParams.start_year,
+      start_month: updateParams.start_month,
+      end_year: updateParams.end_year,
+      end_month: updateParams.end_month,
+      position_name: updateParams.position_name,
+      client_company_name: updateParams.client_company_name,
+      description: "Line 1\nLine 2\nLine 3",
+    };
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ ...expectedBody, id: 123 }),
+    });
+
+    const result = await tool.execute(updateParams);
+
+    expect(result.isError).toBeUndefined();
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.any(URL),
+      expect.objectContaining({
+        method: "PUT",
+        body: JSON.stringify(expectedBody),
+      }),
+    );
+  });
 });
