@@ -152,4 +152,40 @@ describe("CreateExperienceTool", () => {
 
     console.error = originalConsoleError;
   });
+
+  it("descriptionの\\nを改行文字に変換する", async () => {
+    const createParams = {
+      organization_name: "Test Company",
+      positions: [{ id: 1 }],
+      is_client_work: false,
+      start_year: 2020,
+      start_month: 1,
+      end_year: 2023,
+      end_month: 12,
+      position_name: "",
+      client_company_name: "",
+      description: "Line 1\\nLine 2\\nLine 3",
+    };
+
+    const expectedBody = {
+      ...createParams,
+      description: "Line 1\nLine 2\nLine 3",
+    };
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve({ ...expectedBody, id: "123" }),
+    });
+
+    const result = await tool.execute(createParams);
+
+    expect(result.isError).toBeUndefined();
+    expect(mockFetch).toHaveBeenCalledWith(
+      expect.any(URL),
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify(expectedBody),
+      }),
+    );
+  });
 });

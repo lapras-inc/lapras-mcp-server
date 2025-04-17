@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { z } from "zod";
 import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
+import { unescapeText } from "../helpers/textFormatter.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
 
@@ -76,7 +77,10 @@ export class CreateExperienceTool implements IMCPTool {
           accept: "application/json, text/plain, */*",
           Authorization: `Bearer ${apiKeyResult.apiKey}`,
         },
-        body: JSON.stringify(args),
+        body: JSON.stringify({
+          ...args,
+          description: unescapeText(args.description),
+        }),
       });
 
       if (!response.ok) {
