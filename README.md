@@ -100,6 +100,19 @@ LAPRASの職歴を取得して、ブラッシュアップするための質問�
 改善後、LAPRASの職歴を更新してください。
 ```
 
+#### 職務要約を更新する例
+
+```
+私のこれまでの職歴を整理し職務要約を作成して、LAPRASに登録してください。
+```
+
+#### 今後のキャリアでやりたいことを更新する例
+
+```
+私の職歴を取得して、今後のキャリアでやりたいことについて質問してください。
+回答をもとに、LAPRASの今後のキャリアでやりたいことを更新してください。
+```
+
 https://github.com/user-attachments/assets/9c61470f-f97d-4e6f-97ca-53718c796376
 
 ## Tools
@@ -126,6 +139,22 @@ https://github.com/user-attachments/assets/9c61470f-f97d-4e6f-97ca-53718c796376
 ### `delete_experience` 職歴削除
 - LAPRASに登録されている職歴情報を削除
 - 使用例: `delete_experience` ツールを呼び出し、指定した職歴を削除
+
+### `get_job_summary` 職務要約取得
+- LAPRASに登録されている職務要約を取得
+- 使用例: `get_job_summary` ツールを呼び出し、登録済みの職務要約を取得
+
+### `update_job_summary` 職務要約更新
+- LAPRASに職務要約を登録または更新
+- 使用例: `update_job_summary` ツールを呼び出し、職務要約を更新
+
+### `get_want_to_do` キャリア志向取得
+- LAPRASに登録されている今後のキャリアでやりたいことを取得
+- 使用例: `get_want_to_do` ツールを呼び出し、やりたいことを取得
+
+### `update_want_to_do` キャリア志向更新
+- LAPRASに今後のキャリアでやりたいことを登録または更新
+- 使用例: `update_want_to_do` ツールを呼び出し、やりたいことを更新
 
 > [!NOTE]
 > 職歴関連のツールを使用するには、LAPRAS_API_KEYの設定が必要です。
