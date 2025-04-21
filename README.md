@@ -10,7 +10,7 @@ https://lapras.com 公式のMCP Server
 
 ##  Setup
 
-mcp.jsonまたはclaude_desktop_config.jsonに以下を追記してください。
+MCP Serverの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、mcp.jsonまたはclaude_desktop_config.jsonに以下を追記してください。  
 LAPRAS_API_KEYは職歴関連のツールを使う場合のみ必要です。https://lapras.com/config/api-key から取得できます。
 
 ### npx
