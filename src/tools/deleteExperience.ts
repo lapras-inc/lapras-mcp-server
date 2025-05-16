@@ -5,6 +5,7 @@ import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
+import { historyManager } from "../history.js";
 
 /**
  * 職歴削除ツール
@@ -37,6 +38,21 @@ export class DeleteExperienceTool implements IMCPTool {
   }> {
     const apiKeyResult = validateApiKey();
     if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
+
+    // Record history before deleting experience
+    const prevResponse = await fetch(new URL(`${BASE_URL}/experiences`), {
+      headers: {
+        accept: "application/json, text/plain, */*",
+        Authorization: `Bearer ${apiKeyResult.apiKey}`,
+      },
+    });
+    const prevData = await prevResponse.json();
+    historyManager.add({
+      timestamp: new Date().toISOString(),
+      toolName: this.name,
+      objectType: "experience",
+      previousState: prevData,
+    });
 
     try {
       const response = await fetch(new URL(`${BASE_URL}/experiences/${args.experience_id}`), {

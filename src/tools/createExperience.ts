@@ -6,6 +6,7 @@ import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import { unescapeText } from "../helpers/textFormatter.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
+import { historyManager } from "../history.js";
 
 /**
  * 職歴新規追加ツール
@@ -69,6 +70,21 @@ export class CreateExperienceTool implements IMCPTool {
   }> {
     const apiKeyResult = validateApiKey();
     if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
+
+    // Record history before creating experience
+    const prevResponse = await fetch(new URL(`${BASE_URL}/experiences`), {
+      headers: {
+        accept: "application/json, text/plain, */*",
+        Authorization: `Bearer ${apiKeyResult.apiKey}`,
+      },
+    });
+    const prevData = await prevResponse.json();
+    historyManager.add({
+      timestamp: new Date().toISOString(),
+      toolName: this.name,
+      objectType: "experience",
+      previousState: prevData,
+    });
 
     try {
       const response = await fetch(new URL(`${BASE_URL}/experiences`), {

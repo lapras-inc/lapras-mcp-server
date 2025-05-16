@@ -6,6 +6,7 @@ import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import { unescapeText } from "../helpers/textFormatter.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
+import { historyManager } from "../history.js";
 
 /**
  * 職務要約更新ツール
@@ -40,6 +41,22 @@ export class UpdateJobSummaryTool implements IMCPTool {
     if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
 
     try {
+      // Record history before updating job_summary
+      const prevResponse = await fetch(new URL(`${BASE_URL}/job_summary`), {
+        method: "GET",
+        headers: {
+          accept: "application/json, text/plain, */*",
+          Authorization: `Bearer ${apiKeyResult.apiKey}`,
+        },
+      });
+      const prevData = await prevResponse.json();
+      historyManager.add({
+        timestamp: new Date().toISOString(),
+        toolName: this.name,
+        objectType: "job_summary",
+        previousState: prevData,
+      });
+
       const response = await fetch(new URL(`${BASE_URL}/job_summary`), {
         method: "PUT",
         headers: {

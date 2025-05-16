@@ -6,6 +6,7 @@ import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import { unescapeText } from "../helpers/textFormatter.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
+import { historyManager } from "../history.js";
 
 /**
  * 今後のキャリアでやりたいこと更新ツール
@@ -40,6 +41,22 @@ export class UpdateWantToDoTool implements IMCPTool {
     if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
 
     try {
+      // Record history before updating want_to_do
+      const prevResponse = await fetch(new URL(`${BASE_URL}/want_to_do`), {
+        method: "GET",
+        headers: {
+          accept: "application/json, text/plain, */*",
+          Authorization: `Bearer ${apiKeyResult.apiKey}`,
+        },
+      });
+      const prevData = await prevResponse.json();
+      historyManager.add({
+        timestamp: new Date().toISOString(),
+        toolName: this.name,
+        objectType: "want_to_do",
+        previousState: prevData,
+      });
+
       const response = await fetch(new URL(`${BASE_URL}/want_to_do`), {
         method: "PUT",
         headers: {

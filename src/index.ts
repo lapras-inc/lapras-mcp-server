@@ -12,6 +12,7 @@ import { SearchJobsTool } from "./tools/searchJobs.js";
 import { UpdateExperienceTool } from "./tools/updateExperience.js";
 import { UpdateJobSummaryTool } from "./tools/updateJobSummary.js";
 import { UpdateWantToDoTool } from "./tools/updateWantToDo.js";
+import { GetHistoryTool } from "./tools/getHistory.js";
 import type { IMCPTool } from "./types.js";
 
 export const ALL_TOOLS: IMCPTool[] = [
@@ -25,6 +26,7 @@ export const ALL_TOOLS: IMCPTool[] = [
   new UpdateJobSummaryTool(), // 職務要約更新ツール
   new GetWantToDoTool(), // 今後のキャリアでやりたいこと取得ツール
   new UpdateWantToDoTool(), // 今後のキャリアでやりたいこと更新ツール
+  new GetHistoryTool(), // 履歴取得ツール
 ];
 
 const server = new McpServer(
