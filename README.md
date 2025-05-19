@@ -34,6 +34,9 @@ LAPRAS_API_KEYは職歴関連のツールを使う場合のみ必要です。htt
 
 > [!IMPORTANT]
 > Node.jsの環境によってはサーバー接続に失敗する可能性があります。その場合は下記のDocker経由での利用をお試しください。
+>
+> wsl.exe経由でnpxを実行する場合は、envの環境変数は読み取れません。argsで直接環境変数を指定する必要があります。
+> 例: "args": ["LAPRAS_API_KEY=<YOUR_LAPRAS_API_KEY>", "bash", "-c", "/home/bin/npx @lapras-inc/lapras-mcp-server"]
 
 
 ### Docker
