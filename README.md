@@ -13,6 +13,15 @@ https://lapras.com 公式のMCP Server
 MCP Serverの設定（[Cursor](https://docs.cursor.com/context/model-context-protocol#configuring-mcp-servers)、[Claude Desktop](https://modelcontextprotocol.io/quickstart/user)）を参考に、mcp.jsonまたはclaude_desktop_config.jsonに以下を追記してください。  
 LAPRAS_API_KEYは職歴関連のツールを使う場合のみ必要です。https://lapras.com/config/api-key から取得できます。
 
+### Desktop Extension (DXT)
+
+Claude Desktopを使用している場合、Desktop Extension（.dxtファイル）を使って簡単にインストールできます。
+
+1. [リリースページ](https://github.com/lapras-inc/lapras-mcp-server/releases)から最新の`lapras-mcp-server.dxt`をダウンロード
+2. Claude Desktopの設定画面を開く
+3. ダウンロードした`.dxt`ファイルを設定画面にドラッグ＆ドロップ
+4. 必要に応じてLAPRAS_API_KEYを設定
+
 ### npx
 
 ```

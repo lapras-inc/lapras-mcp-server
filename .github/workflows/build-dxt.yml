@@ -1,0 +1,83 @@
+name: Build Desktop Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'  # Using latest LTS version
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build project
+      run: npm run build
+      
+    - name: Install DXT CLI globally
+      run: npm install -g @anthropic-ai/dxt
+      
+    - name: Create DXT package
+      run: |
+        # Get version from manifest.json
+        VERSION=$(node -p "require('./manifest.json').version")
+        echo "Building DXT for version: $VERSION"
+        
+        # Create DXT directly in project root (dxt pack includes dependencies)
+        npx @anthropic-ai/dxt pack
+        
+        # Rename to include version
+        mv lapras-mcp-server.dxt lapras-mcp-server-v${VERSION}.dxt
+        
+        # Also create a copy without version for consistency
+        cp lapras-mcp-server-v${VERSION}.dxt lapras-mcp-server.dxt
+        
+    - name: Verify DXT creation
+      run: |
+        if [ ! -f lapras-mcp-server.dxt ]; then
+          echo "Error: DXT file not created"
+          exit 1
+        fi
+        ls -la *.dxt
+        
+    - name: Upload DXT as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: lapras-mcp-server-dxt
+        path: |
+          lapras-mcp-server.dxt
+          lapras-mcp-server-v*.dxt
+        
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+    - name: Download DXT artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: lapras-mcp-server-dxt
+        
+    - name: List downloaded files
+      run: ls -la
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          lapras-mcp-server.dxt
+          lapras-mcp-server-v*.dxt
+        generate_release_notes: true
+        fail_on_unmatched_files: true
