@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write  # Required for creating releases and uploading assets
+
 jobs:
   build:
     runs-on: ubuntu-latest
