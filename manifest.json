@@ -2,7 +2,7 @@
   "dxt_version": "0.1",
   "name": "lapras-mcp-server",
   "display_name": "LAPRAS MCP Server",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "LAPRAS（https://lapras.com）公式 MCP Server。",
   "long_description": "LAPRAS（https://lapras.com）公式 MCP Server。LAPRAS上の求人検索やキャリア閲覧・編集をLLMサービスから直接利用できます。転職活動やキャリア管理を効率化できます。",
   "icon": "assets/icon.png",
