@@ -3,8 +3,9 @@
   "name": "lapras-mcp-server",
   "display_name": "LAPRAS MCP Server",
   "version": "0.5.1",
-  "description": "MCP server for lapras.com - Search jobs, manage work experiences, and career planning",
-  "long_description": "The LAPRAS MCP Server enables AI assistants to interact with LAPRAS (https://lapras.com), a Japanese career platform. It provides tools for job search, work experience management, and career planning.\n\n## Features\n- **Job Search**: Search jobs with filters like keywords, minimum salary, and remote work options\n- **Work Experience Management**: Create, read, update, and delete work experiences\n- **Career Planning**: Manage job summaries and future career aspirations\n\n## Requirements\n- LAPRAS API Key (optional, required for work experience features)\n- Get your API key from: https://lapras.com/config/api-key",
+  "description": "LAPRAS（https://lapras.com）公式 MCP Server。",
+  "long_description": "LAPRAS（https://lapras.com）公式 MCP Server。LAPRAS上の求人検索やキャリア閲覧・編集をLLMサービスから直接利用できます。転職活動やキャリア管理を効率化できます。",
+  "icon": "assets/icon.png",
   "author": {
     "name": "lapras-inc",
     "url": "https://github.com/lapras-inc/lapras-mcp-server"
@@ -79,12 +80,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lapras-inc/lapras-mcp-server"
-  },
-  "compatibility": {
-    "claude_desktop": ">=0.10.0",
-    "platforms": ["darwin", "win32", "linux"],
-    "runtimes": {
-      "node": ">=16.0.0"
-    }
   }
 }
