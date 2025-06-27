@@ -1,0 +1,90 @@
+{
+  "dxt_version": "0.1",
+  "name": "lapras-mcp-server",
+  "display_name": "LAPRAS MCP Server",
+  "version": "0.4.0",
+  "description": "MCP server for lapras.com - Search jobs, manage work experiences, and career planning",
+  "long_description": "The LAPRAS MCP Server enables AI assistants to interact with LAPRAS (https://lapras.com), a Japanese career platform. It provides tools for job search, work experience management, and career planning.\n\n## Features\n- **Job Search**: Search jobs with filters like keywords, minimum salary, and remote work options\n- **Work Experience Management**: Create, read, update, and delete work experiences\n- **Career Planning**: Manage job summaries and future career aspirations\n\n## Requirements\n- LAPRAS API Key (optional, required for work experience features)\n- Get your API key from: https://lapras.com/config/api-key",
+  "author": {
+    "name": "lapras-inc",
+    "url": "https://github.com/lapras-inc/lapras-mcp-server"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {
+        "LAPRAS_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
+  "user_config": {
+    "api_key": {
+      "type": "string",
+      "title": "LAPRAS API Key",
+      "description": "API key for LAPRAS. Required for work experience related tools. Get it from https://lapras.com/config/api-key",
+      "sensitive": true,
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "search_job",
+      "description": "Search jobs with keyword, page number, minimum salary, etc."
+    },
+    {
+      "name": "get_job_detail",
+      "description": "Get detailed information about a specific job"
+    },
+    {
+      "name": "get_experiences",
+      "description": "Get list of work experiences registered in LAPRAS"
+    },
+    {
+      "name": "create_experience",
+      "description": "Add new work experience to LAPRAS"
+    },
+    {
+      "name": "update_experience",
+      "description": "Update existing work experience in LAPRAS"
+    },
+    {
+      "name": "delete_experience",
+      "description": "Delete work experience from LAPRAS"
+    },
+    {
+      "name": "get_job_summary",
+      "description": "Get job summary registered in LAPRAS"
+    },
+    {
+      "name": "update_job_summary",
+      "description": "Register or update job summary in LAPRAS"
+    },
+    {
+      "name": "get_want_to_do",
+      "description": "Get future career aspirations registered in LAPRAS"
+    },
+    {
+      "name": "update_want_to_do",
+      "description": "Register or update future career aspirations in LAPRAS"
+    }
+  ],
+  "keywords": ["mcp", "lapras", "job_description", "career", "jobs"],
+  "license": "MIT",
+  "homepage": "https://github.com/lapras-inc/lapras-mcp-server",
+  "documentation": "https://github.com/lapras-inc/lapras-mcp-server#readme",
+  "support": "https://github.com/lapras-inc/lapras-mcp-server/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lapras-inc/lapras-mcp-server"
+  },
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=16.0.0"
+    }
+  }
+}
