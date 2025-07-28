@@ -20,7 +20,7 @@ Claude Desktopを使用している場合、Desktop Extension（.dxtファイル
 1. [リリースページ](https://github.com/lapras-inc/lapras-mcp-server/releases)から最新の`lapras-mcp-server.dxt`をダウンロード
 2. Claude Desktopの設定画面を開く
 3. ダウンロードした`.dxt`ファイルを設定画面にドラッグ＆ドロップ
-4. 必要に応じてLAPRAS_API_KEYを設定
+4. 必要に応じてLAPRAS_API_KEYを設定（LAPRAS_API_KEYを設定後はMCPの有効・無効の設定をトグルしてください）
 
 ### npx
 
@@ -46,24 +46,6 @@ Claude Desktopを使用している場合、Desktop Extension（.dxtファイル
 > また、WSL経由でnpxを実行する場合は、envの環境変数は読み取れません。argsで直接環境変数を指定する必要があります。
 > 例: `"args": ["LAPRAS_API_KEY=<YOUR_LAPRAS_API_KEY>", "bash", "-c", "/home/bin/npx @lapras-inc/lapras-mcp-server"]`
 
-### Gemini CLI
-
-GoogleのGemini CLIで利用する場合、上記の「**npx**」セクションにあるJSONコードを、お使いの`settings.json`ファイルに追記します。
-
-設定ファイルは通常、OSごとに以下のパスに配置されています。
-* **Windows**: `C:\Users\<ユーザー名>\.gemini\`
-* **macOS / Linux**: `~/.gemini/`
-
-> [!NOTE]
-> `gemini.conf.toml` を使用する場合は、以下のTOML形式で記述することも可能です。
-> ```toml
-> [mcpServers.lapras]
-> command = "npx"
-> args = ["-y", "@lapras-inc/lapras-mcp-server"]
-> 
-> [mcpServers.lapras.env]
-> LAPRAS_API_KEY = "<YOUR_LAPRAS_API_KEY>"
-> ```
 
 ### Docker
 
@@ -87,6 +69,26 @@ GoogleのGemini CLIで利用する場合、上記の「**npx**」セクション
   }
 }
 ```
+
+### Gemini CLI
+
+GoogleのGemini CLIで利用する場合、上記の「**npx**」セクションにあるJSONコードを、お使いの`settings.json`ファイルに追記します。
+
+設定ファイルは通常、OSごとに以下のパスに配置されています。
+* **Windows**: `C:\Users\<ユーザー名>\.gemini\`
+* **macOS / Linux**: `~/.gemini/`
+
+> [!NOTE]
+> `gemini.conf.toml` を使用する場合は、以下のTOML形式で記述することも可能です。
+> ```toml
+> [mcpServers.lapras]
+> command = "npx"
+> args = ["-y", "@lapras-inc/lapras-mcp-server"]
+> 
+> [mcpServers.lapras.env]
+> LAPRAS_API_KEY = "<YOUR_LAPRAS_API_KEY>"
+> ```
+
 
 ## General notes
 > [!WARNING]
