@@ -187,6 +187,15 @@ https://github.com/user-attachments/assets/9c61470f-f97d-4e6f-97ca-53718c796376
 - LAPRASに今後のキャリアでやりたいことを登録または更新
 - 使用例: `update_want_to_do` ツールを呼び出し、やりたいことを更新
 
+### `get_tech_skill` テックスキル取得
+- LAPRASに登録されている経験技術・スキル・資格
+一覧（スキルID・スキル名・経験年数）を取得
+- 使用例: `get_tech_skill` ツールを呼び出し、現在のテックスキルの状況を確認
+
+### `update_tech_skill` テックスキル更新
+- 経験技術・スキル・資格と経験年数（実数値）を指定して、LAPRASのテックスキルを更新
+- 使用例: `update_tech_skill` ツールを呼び出し、抽出したスキル情報をLAPRASに反映
+
 > [!NOTE]
 > 職歴関連のツールを使用するには、LAPRAS_API_KEYの設定が必要です。
 > APIキーは https://lapras.com/config/api-key から取得できます。

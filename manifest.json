@@ -70,6 +70,14 @@
     {
       "name": "update_want_to_do",
       "description": "Register or update future career aspirations in LAPRAS"
+    },
+    {
+      "name": "get_tech_skill",
+      "description": "Get tech skills registered in LAPRAS"
+    },
+    {
+      "name": "update_tech_skill",
+      "description": "Register or update tech skills in LAPRAS"
     }
   ],
   "keywords": ["mcp", "lapras", "job_description", "career", "jobs"],
