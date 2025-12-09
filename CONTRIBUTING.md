@@ -75,3 +75,7 @@ docker tag lapras/mcp-server laprascom/lapras-mcp-server:latest
 docker push laprascom/lapras-mcp-server:latest
 ```
 
+### DXT
+
+新しいtagをmainにpushするとCIでリリースと共に作成されるので特に対応不要。
+
