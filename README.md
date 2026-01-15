@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/lapras-inc-lapras-mcp-server-badge.png)](https://mseep.ai/app/lapras-inc-lapras-mcp-server)
+
 # LAPRAS MCP Server
 
 https://lapras.com 公式のMCP Server
