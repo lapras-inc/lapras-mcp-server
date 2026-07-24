@@ -68,12 +68,13 @@ export class CreateExperienceTool implements IMCPTool {
     isError?: boolean;
   }> {
     const apiKeyResult = validateApiKey();
-    if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
+    if (apiKeyResult.isInvalid) return apiKeyResult.errorResponse;
 
     try {
       const response = await fetch(new URL(`${BASE_URL}/experiences`), {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           accept: "application/json, text/plain, */*",
           Authorization: `Bearer ${apiKeyResult.apiKey}`,
         },

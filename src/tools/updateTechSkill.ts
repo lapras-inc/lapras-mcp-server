@@ -60,7 +60,7 @@ export class UpdateTechSkillTool implements IMCPTool {
     isError?: boolean;
   }> {
     const apiKeyResult = validateApiKey();
-    if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
+    if (apiKeyResult.isInvalid) return apiKeyResult.errorResponse;
 
     try {
       const masterResponse = await fetch(new URL(`${BASE_URL}/tech_skill/master`), {

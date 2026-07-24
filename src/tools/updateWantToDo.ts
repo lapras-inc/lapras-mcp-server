@@ -37,7 +37,7 @@ export class UpdateWantToDoTool implements IMCPTool {
     isError?: boolean;
   }> {
     const apiKeyResult = validateApiKey();
-    if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
+    if (apiKeyResult.isInvalid) return apiKeyResult.errorResponse;
 
     try {
       const response = await fetch(new URL(`${BASE_URL}/want_to_do`), {

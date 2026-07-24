@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { GetExpriencesTool } from "../getExperiences.js";
+import { GetExperiencesTool } from "../getExperiences.js";
 
 vi.mock("node-fetch", () => {
   return {
@@ -8,13 +8,13 @@ vi.mock("node-fetch", () => {
   };
 });
 
-describe("GetExpriencesTool", () => {
-  let tool: GetExpriencesTool;
+describe("GetExperiencesTool", () => {
+  let tool: GetExperiencesTool;
   let mockFetch: ReturnType<typeof vi.fn>;
   const originalEnv = process.env;
 
   beforeEach(() => {
-    tool = new GetExpriencesTool();
+    tool = new GetExperiencesTool();
     mockFetch = fetch as unknown as ReturnType<typeof vi.fn>;
     process.env = { ...originalEnv, LAPRAS_API_KEY: "test-api-key" };
     vi.clearAllMocks();

@@ -17,8 +17,8 @@ describe("validateApiKey", () => {
     const result = validateApiKey();
     expect(result.isInvalid).toBe(true);
     if (result.isInvalid) {
-      expect(result.errorResopnse.isError).toBe(true);
-      expect(result.errorResopnse.content[0].text).toContain("LAPRAS_API_KEYの設定が必要です");
+      expect(result.errorResponse.isError).toBe(true);
+      expect(result.errorResponse.content[0].text).toContain("LAPRAS_API_KEYの設定が必要です");
     }
   });
 

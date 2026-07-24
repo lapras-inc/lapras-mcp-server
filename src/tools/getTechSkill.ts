@@ -4,6 +4,16 @@ import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
 import type { IMCPTool } from "../types.js";
+import { z } from "zod";
+
+const TechSkillResponseSchema = z.object({
+  error: z.boolean(),
+  tech_skill_list: z.array(z.object({
+    tech_skill_id: z.number(),
+    years: z.number(),
+  })),
+  updated_at: z.string(),
+});
 
 const EXPERIENCE_YEARS_LABEL_MAP: Record<number, string> = {
   0: "1年未満",
@@ -46,7 +56,7 @@ export class GetTechSkillTool implements IMCPTool {
     isError?: boolean;
   }> {
     const apiKeyResult = validateApiKey();
-    if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
+    if (apiKeyResult.isInvalid) return apiKeyResult.errorResponse;
 
     try {
       const masterResponse = await fetch(new URL(`${BASE_URL}/tech_skill/master`), {
@@ -79,12 +89,8 @@ export class GetTechSkillTool implements IMCPTool {
       if (!response.ok) {
         throw new Error(`API request failed with status: ${response.status}`);
       }
-
-      const data = (await response.json()) as {
-        error: boolean;
-        tech_skill_list: Array<{ tech_skill_id: number; years: number }>;
-        updated_at: string;
-      };
+      
+      const data = TechSkillResponseSchema.parse(await response.json());
 
       const formatted = data.tech_skill_list.map((skill) => {
         const name = masterMap.get(skill.tech_skill_id);

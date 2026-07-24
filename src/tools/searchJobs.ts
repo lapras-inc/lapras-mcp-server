@@ -252,6 +252,7 @@ export class SearchJobsTool implements IMCPTool {
 
       return { content };
     } catch (error) {
+      console.error(error);
       return createErrorResponse(error, "求人情報の取得に失敗しました");
     }
   }

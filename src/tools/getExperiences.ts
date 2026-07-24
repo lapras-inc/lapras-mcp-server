@@ -8,7 +8,7 @@ import type { IMCPTool } from "../types.js";
 /**
  * 職歴取得ツール
  */
-export class GetExpriencesTool implements IMCPTool {
+export class GetExperiencesTool implements IMCPTool {
   /**
    * Tool name
    */
@@ -32,7 +32,7 @@ export class GetExpriencesTool implements IMCPTool {
     isError?: boolean;
   }> {
     const apiKeyResult = validateApiKey();
-    if (apiKeyResult.isInvalid) return apiKeyResult.errorResopnse;
+    if (apiKeyResult.isInvalid) return apiKeyResult.errorResponse;
 
     try {
       const url = new URL(`${BASE_URL}/experiences`);
