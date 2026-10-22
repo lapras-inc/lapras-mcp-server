@@ -65,6 +65,7 @@ describe("CreateExperienceTool", () => {
       expect.objectContaining({
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           accept: "application/json, text/plain, */*",
           Authorization: "Bearer test-api-key",
         },
