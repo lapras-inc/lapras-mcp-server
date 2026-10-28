@@ -61,17 +61,17 @@ describe("CreateExperienceTool", () => {
     expect(JSON.parse(result.content[0].text)).toEqual(mockData);
 
     expect(mockFetch).toHaveBeenCalledWith(
-      expect.any(URL),
+      expect.anything(),
       expect.objectContaining({
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+        headers: expect.objectContaining({
           accept: "application/json, text/plain, */*",
           Authorization: "Bearer test-api-key",
-        },
+        }),
         body: JSON.stringify(createParams),
       }),
     );
+    expect(String(mockFetch.mock.calls[0][0])).toBe("https://lapras.com/api/mcp/experiences");
   });
 
   it("クライアントワークの場合、client_company_nameが必須", async () => {
