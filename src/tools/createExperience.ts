@@ -1,13 +1,12 @@
 import type { TextContent } from "@modelcontextprotocol/sdk/types.js";
 import fetch from "node-fetch";
-import { z } from "zod";
 import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import { unescapeText } from "../helpers/textFormatter.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
+import { createExperienceParams } from "../schemas/experience.js";
 import type { IMCPTool, InferZodParams } from "../types.js";
-import { createExperienceParams } from "../schemas/experience.ts";
-  
+
 /**
  * 職歴新規追加ツール
  */
