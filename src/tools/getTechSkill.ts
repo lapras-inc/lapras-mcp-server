@@ -1,17 +1,19 @@
 import type { TextContent } from "@modelcontextprotocol/sdk/types.js";
 import fetch from "node-fetch";
+import { z } from "zod";
 import { BASE_URL } from "../constants.js";
 import { createErrorResponse } from "../helpers/createErrorResponse.js";
 import { validateApiKey } from "../helpers/validateApiKey.js";
 import type { IMCPTool } from "../types.js";
-import { z } from "zod";
 
 const TechSkillResponseSchema = z.object({
   error: z.boolean(),
-  tech_skill_list: z.array(z.object({
-    tech_skill_id: z.number(),
-    years: z.number(),
-  })),
+  tech_skill_list: z.array(
+    z.object({
+      tech_skill_id: z.number(),
+      years: z.number(),
+    }),
+  ),
   updated_at: z.string(),
 });
 
@@ -89,7 +91,7 @@ export class GetTechSkillTool implements IMCPTool {
       if (!response.ok) {
         throw new Error(`API request failed with status: ${response.status}`);
       }
-      
+
       const data = TechSkillResponseSchema.parse(await response.json());
 
       const formatted = data.tech_skill_list.map((skill) => {
